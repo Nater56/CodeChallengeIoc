@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.SessionState;
-using TheIocProject.Container;
 using TheIocProject.Controllers;
 using TheIocProject.Services;
 

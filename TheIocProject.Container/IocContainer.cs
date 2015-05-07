@@ -11,10 +11,7 @@ namespace TheIocProject.Container
 	{
 		private readonly IList<RegisteredObject> _objectRegistry = new List<RegisteredObject>();
 
-		public void Register<TTo, TFrom>()
-		{
-			Register<TTo, TFrom>(true);
-		}
+
 		public void Register<TTo, TFrom>(bool isTransient)
 		{
 			_objectRegistry.Add(new RegisteredObject(typeof(TFrom), typeof(TTo), isTransient));

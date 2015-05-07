@@ -91,7 +91,6 @@
     <Compile Include="Controllers\ContainerTest.cs" />
     <Compile Include="Controllers\CountingControllerTest.cs" />
     <Compile Include="Controllers\DuelControllerTest.cs" />
-    <Compile Include="Controllers\ServerStatusControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
@@ -102,10 +101,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TheIocProject.Container\TheIocProject.Container.csproj">
-      <Project>{C9EAC135-FB51-4444-B91C-F5F2F8A6DF72}</Project>
-      <Name>TheIocProject.Container</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TheIocProject\TheIocProject.csproj">
       <Project>{7D43BCE9-5C2E-41D9-8A05-FEC091721F93}</Project>
       <Name>TheIocProject</Name>

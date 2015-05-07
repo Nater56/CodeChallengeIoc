@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using TheIocProject.Models;
 
-namespace TheIocProject.Container
+namespace TheIocProject.Infrastructure
 {
 	public interface IIocContainer
 	{
-		void Register<TTo, TFrom>(bool isTransient);
+		void Register<TTo, TFrom>(bool isTransient = false);
 		TFrom Resolve<TFrom>();
 		object Resolve(Type from);
 		object ResolveObject(Type from);

@@ -4,19 +4,16 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TheIocProject.Container;
+using System.Web.DynamicData;
+using TheIocProject.Exceptions;
+using TheIocProject.Models;
 
 namespace TheIocProject.Infrastructure
 {
 	public class IocContainer : IIocContainer
 	{
 		private readonly IList<RegisteredObject> _objectRegistry = new List<RegisteredObject>();
-
-		public void Register<TFrom, TTo>()
-		{
-			Register<TFrom, TTo>(true);
-		}
-		public void Register<TFrom, TTo>(bool isTransient)
+		public void Register<TFrom, TTo>(bool isTransient = true)
 		{
 			_objectRegistry.Add(new RegisteredObject(typeof(TFrom), typeof(TTo), isTransient));
 		}
@@ -25,18 +22,27 @@ namespace TheIocProject.Infrastructure
         {
             return (TFrom) ResolveObject(typeof (TFrom));
         }
-
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="from"></param>
+		/// <returns></returns>
         public object Resolve(Type from)
         {
             return ResolveObject(from);
         }
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="from"></param>
+		/// <returns></returns>
 		public object ResolveObject(Type from)
         {
             var registeredObject = _objectRegistry.FirstOrDefault(p => p.From == from);
             if (registeredObject == null)
             {
-	            throw new System.Exception(from.Name + " Has not been registered to this container.");
+	            throw new NotRegisteredException(from.Name + " Has not been registered to this container.");
             }
             return CreateInstance(registeredObject);
         }
