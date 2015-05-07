@@ -13,14 +13,19 @@ namespace TheIocProject.Infrastructure
 	public class CustomControllerFactory : IControllerFactory
 	{
 		private readonly IIocContainer container;
-
+		
 		public CustomControllerFactory(IIocContainer container)
 		{
 			this.container = container; 
 		}
 
 
-
+/// <summary>
+/// Handle the CreateController call for our controllers that we want the container to create
+/// </summary>
+/// <param name="requestContext"></param>
+/// <param name="controllerName"></param>
+/// <returns></returns>
 
 		public IController CreateController(System.Web.Routing.RequestContext requestContext, string controllerName)
 		{
@@ -46,7 +51,7 @@ namespace TheIocProject.Infrastructure
 				return controller;
 			}
 
-
+			
 			var defaultFactory = new DefaultControllerFactory();
 			return defaultFactory.CreateController(requestContext, controllerName);
 		}

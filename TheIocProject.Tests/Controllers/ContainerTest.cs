@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -48,6 +49,18 @@ namespace TheIocProject.Tests.Controllers
 			//act
 			//assert
 			Assert.Throws<NotRegisteredException>(() => container.Resolve<CountingService>());
+		}
+
+		[Test]
+		public void ResolveMultipleInjectionWithTheDuelController()
+		{
+			//arrange
+			var container = new IocContainer();
+			container.Register<DuelControllerTest, DuelControllerTest>(false);
+			//act
+			var result = container.Resolve<DuelControllerTest>();
+			//assert
+			Assert.IsInstanceOf<DuelControllerTest>(result);
 		}
 	}
 }

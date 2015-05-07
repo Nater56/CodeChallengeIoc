@@ -12,18 +12,31 @@ namespace TheIocProject.Infrastructure
 {
 	public class IocContainer : IIocContainer
 	{
+		/// <summary>
+		/// Create our object registry
+		/// </summary>
 		private readonly IList<RegisteredObject> _objectRegistry = new List<RegisteredObject>();
+		/// <summary>
+		/// Handle the registration of objects
+		/// </summary>
+		/// <typeparam name="TFrom"></typeparam>
+		/// <typeparam name="TTo"></typeparam>
+		/// <param name="isTransient"></param>
 		public void Register<TFrom, TTo>(bool isTransient = true)
 		{
 			_objectRegistry.Add(new RegisteredObject(typeof(TFrom), typeof(TTo), isTransient));
 		}
-
+		/// <summary>
+		/// Take passed in object and call the ResolveObject method to return the instance
+		/// </summary>
+		/// <typeparam name="TFrom"></typeparam>
+		/// <returns></returns>
 		 public TFrom Resolve<TFrom>()
         {
             return (TFrom) ResolveObject(typeof (TFrom));
         }
 		/// <summary>
-		/// 
+		/// Overload take passed in object parameter and call the ResolveObject method to return the instance
 		/// </summary>
 		/// <param name="from"></param>
 		/// <returns></returns>
@@ -33,7 +46,7 @@ namespace TheIocProject.Infrastructure
         }
 
 		/// <summary>
-		/// 
+		/// Find our object in the registry or throw an exception if it is not found. If found we can call CreateInstance
 		/// </summary>
 		/// <param name="from"></param>
 		/// <returns></returns>
@@ -46,6 +59,11 @@ namespace TheIocProject.Infrastructure
             }
             return CreateInstance(registeredObject);
         }
+		/// <summary>
+		/// Resolve the object either by returning the existing object if !Transient or by returning the CreateInstance method
+		/// </summary>
+		/// <param name="registeredObject"></param>
+		/// <returns></returns>
 
 		public object CreateInstance(RegisteredObject registeredObject)
         {
@@ -56,6 +74,11 @@ namespace TheIocProject.Infrastructure
 	        return registeredObject.Instance;
         }
 
+		/// <summary>
+		/// I get the construction arguments for the passed in object and return them
+		/// </summary>
+		/// <param name="registeredObject"></param>
+		/// <returns></returns>
 		public IEnumerable<object> GetConstructorParameters(RegisteredObject registeredObject)
         {
 	        var constructorInfo = registeredObject.To.GetConstructors().First();
